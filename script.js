@@ -19,14 +19,16 @@ ContactApi.getList()
     })
 
 function onFormSubmit(e){
-    e.preventDefault()
+    e.preventDefault()    
     const contact = getData()
     clearInputs()
     inputName.focus()
+
     if(!isDataValid(contact)){
         showError(new Error('Введенные данные не валидны!'))
         return
     }
+
     ContactApi.create(contact)
         .then((contact) => {
             createTableRowWithNewData(contact)
@@ -40,6 +42,7 @@ function onTableContactClick(e){
     const target = e.target
     const contactRow = findContactRow(target)
     const id = contactRow.querySelector(CLASS_ID).textContent
+
     if(findDeleteButton(target)){
         ContactApi.delete(id)
             .then(() => {
@@ -94,6 +97,7 @@ function findContactRow(element){
 function findDeleteButton(target){
     return target.classList.contains(CLASS_DELETE_BTN)
 }
+
 function deleteRow(row){
     row.remove()
 }
